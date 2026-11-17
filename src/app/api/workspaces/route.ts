@@ -105,38 +105,56 @@ export async function POST(request: Request) {
 
   const parsed = createWorkspaceSchema.safeParse(body);
   if (!parsed.success) {
-    return apiError("ACS-VAL-01", 400, parsed.error.issues[0]?.message);
+    return apiError("ACS-VAL-01", 400);
   }
 
-  // Ensure profile exists before creating workspace
-  await supabase.from("profiles").upsert(
+  // Ensure profile exists without overwriting an already-customized full_name
+  const { error: profileErr } = await supabase.from("profiles").upsert(
     {
       id: user.id,
       full_name: (user.user_metadata?.full_name as string | undefined) ?? "",
       email: user.email ?? null,
     },
-    { onConflict: "id" }
+    { onConflict: "id", ignoreDuplicates: true }
   );
 
-  // Insert workspace; DB trigger handle_new_workspace() adds owner to workspace_members
-  const { data: workspace, error } = await supabase
-    .from("workspaces")
-    .insert({
-      name: parsed.data.name,
-      owner_id: user.id,
-      plan: "free",
-    })
-    .select("*")
-    .single();
-
-  if (error || !workspace) {
+  if (profileErr) {
     return apiError("ACS-WS-02", 500);
   }
+
+  // Generate UUID client-side and insert WITHOUT .select() so PostgreSQL evaluates
+  // AFTER INSERT trigger (handle_new_workspace) before we query via SELECT RLS.
+  const workspaceId = crypto.randomUUID();
+  const { error: insertError } = await supabase.from("workspaces").insert({
+    id: workspaceId,
+    name: parsed.data.name,
+    owner_id: user.id,
+    plan: "free",
+  });
+
+  if (insertError) {
+    return apiError("ACS-WS-02", 500);
+  }
+
+  const { data: workspace, error: fetchError } = await supabase
+    .from("workspaces")
+    .select("*")
+    .eq("id", workspaceId)
+    .single();
+
+  if (fetchError || !workspace) {
+    return apiError("ACS-WS-02", 500);
+  }
+
+  const isHttps =
+    request.headers.get("x-forwarded-proto") === "https" ||
+    request.url.startsWith("https://");
 
   const cookieStore = await cookies();
   cookieStore.set(ACTIVE_WORKSPACE_COOKIE, workspace.id, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: isHttps ? "none" : "lax",
+    secure: isHttps,
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   });

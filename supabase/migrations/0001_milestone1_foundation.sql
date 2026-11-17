@@ -266,7 +266,7 @@ drop policy if exists "workspaces_select_member" on public.workspaces;
 create policy "workspaces_select_member"
   on public.workspaces for select
   to authenticated
-  using (public.is_workspace_member(id));
+  using (owner_id = auth.uid() or public.is_workspace_member(id));
 
 drop policy if exists "workspaces_insert_owner" on public.workspaces;
 create policy "workspaces_insert_owner"

@@ -45,10 +45,15 @@ export async function POST(request: Request) {
     return apiError("ACS-WS-01", 403);
   }
 
+  const isHttps =
+    request.headers.get("x-forwarded-proto") === "https" ||
+    request.url.startsWith("https://");
+
   const cookieStore = await cookies();
   cookieStore.set(ACTIVE_WORKSPACE_COOKIE, parsed.data.workspaceId, {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: isHttps ? "none" : "lax",
+    secure: isHttps,
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   });
