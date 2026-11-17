@@ -6,6 +6,12 @@ import type {
   FontRole,
   ReferenceType,
 } from "@/lib/types/brand";
+import type {
+  AiJobStatus,
+  BriefLanguage,
+  ContentType,
+  ProjectStatus,
+} from "@/lib/types/project";
 
 export type Locale = "en" | "id";
 
@@ -96,6 +102,7 @@ export interface Dictionary {
   shell: {
     dashboard: string;
     brands: string;
+    projects: string;
     workspace: string;
     workspaces: string;
     noWorkspace: string;
@@ -262,6 +269,82 @@ export interface Dictionary {
     assetTypes: Record<AssetType, string>;
     referenceTypes: Record<ReferenceType, string>;
   };
+  projects: {
+    title: string;
+    newTitle: string;
+    generateTitle: string;
+    newProject: string;
+    searchPlaceholder: string;
+    emptyTitle: string;
+    emptyDesc: string;
+    needBrandTitle: string;
+    needBrandDesc: string;
+    goToBrands: string;
+    noMatches: string;
+    noWorkspaceDesc: string;
+    colProject: string;
+    colBrand: string;
+    colType: string;
+    colSlides: string;
+    colStatus: string;
+    colUpdated: string;
+    projectName: string;
+    projectNamePlaceholder: string;
+    selectBrand: string;
+    topic: string;
+    topicPlaceholder: string;
+    objective: string;
+    objectivePlaceholder: string;
+    audience: string;
+    audiencePlaceholder: string;
+    contentType: string;
+    slideCount: string;
+    outputLanguage: string;
+    keyPoints: string;
+    keyPointsPlaceholder: string;
+    ctaGoal: string;
+    ctaGoalPlaceholder: string;
+    productFacts: string;
+    productFactsPlaceholder: string;
+    toneOverride: string;
+    toneOverridePlaceholder: string;
+    briefSection: string;
+    toggleBrief: string;
+    saveBrief: string;
+    generateContent: string;
+    regenerateContent: string;
+    generating: string;
+    generationReady: string;
+    aiConfigNotice: string;
+    noContentYet: string;
+    noContentDesc: string;
+    tabContentPlan: string;
+    tabSlideCopy: string;
+    angle: string;
+    storytellingArc: string;
+    slideLabel: (n: number) => string;
+    purpose: string;
+    keyMessage: string;
+    visualHint: string;
+    hook: string;
+    headline: string;
+    body: string;
+    cta: string;
+    microLabel: string;
+    caption: string;
+    hashtags: string;
+    saveCopyEdits: string;
+    savedNotice: string;
+    deleteProjectTitle: (name: string) => string;
+    deleteProjectDesc: string;
+    jobStatusLabel: string;
+    tokensLabel: string;
+    statuses: Record<ProjectStatus, string>;
+    contentTypes: Record<ContentType, string>;
+    languages: Record<BriefLanguage, string>;
+    jobStatuses: Record<AiJobStatus, string>;
+    stages: Record<string, string>;
+  };
   roles: Record<WorkspaceRole, string>;
   roleCapabilities: Record<WorkspaceRole, string>;
 }
@@ -353,6 +436,7 @@ const EN: Dictionary = {
   shell: {
     dashboard: "Dashboard",
     brands: "Brands",
+    projects: "Projects",
     workspace: "Workspace",
     workspaces: "Workspaces",
     noWorkspace: "No Workspace",
@@ -550,6 +634,112 @@ const EN: Dictionary = {
       mandatory: "Mandatory",
     },
   },
+  projects: {
+    title: "Projects",
+    newTitle: "New Project",
+    generateTitle: "Content & Copy",
+    newProject: "New Project",
+    searchPlaceholder: "Search projects...",
+    emptyTitle: "No projects yet",
+    emptyDesc: "Create a carousel project and brief to generate content.",
+    needBrandTitle: "Create a brand first",
+    needBrandDesc: "Projects require a brand profile for Brand DNA context.",
+    goToBrands: "Open Brands",
+    noMatches: "No matching projects.",
+    noWorkspaceDesc: "Create a workspace before creating projects.",
+    colProject: "Project",
+    colBrand: "Brand",
+    colType: "Type",
+    colSlides: "Slides",
+    colStatus: "Status",
+    colUpdated: "Updated",
+    projectName: "Project Name",
+    projectNamePlaceholder: "Q2 Coffee Brewing Guide",
+    selectBrand: "Brand",
+    topic: "Topic",
+    topicPlaceholder: "5 pour-over mistakes ruining your morning brew",
+    objective: "Objective",
+    objectivePlaceholder: "Save & share engagement from home brewers",
+    audience: "Audience (Optional Override)",
+    audiencePlaceholder: "Defaults to Brand DNA target audience",
+    contentType: "Content Type",
+    slideCount: "Slide Count (3–10)",
+    outputLanguage: "Output Language",
+    keyPoints: "Key Points",
+    keyPointsPlaceholder: "Grind size, water temp 92C, bloom 30s, pour speed",
+    ctaGoal: "CTA Goal",
+    ctaGoalPlaceholder: "Save this guide & comment your brew ratio",
+    productFacts: "Verified Facts / Constraints",
+    productFactsPlaceholder: "Only state verified prices, addresses, or claims",
+    toneOverride: "Tone Override (Optional)",
+    toneOverridePlaceholder: "Extra crisp for Reels/carousel hook",
+    briefSection: "Content Brief",
+    toggleBrief: "Brief",
+    saveBrief: "Save Brief",
+    generateContent: "Generate Plan & Copy",
+    regenerateContent: "Regenerate",
+    generating: "Generating...",
+    generationReady: "Content plan and copy generated.",
+    aiConfigNotice: "AI generation service requires server configuration.",
+    noContentYet: "No generated content yet",
+    noContentDesc: "Run generation to build the slide plan and copywriting.",
+    tabContentPlan: "Content Plan",
+    tabSlideCopy: "Slide Copywriting",
+    angle: "Content Angle",
+    storytellingArc: "Storytelling Arc",
+    slideLabel: (n) => `Slide ${n}`,
+    purpose: "Purpose",
+    keyMessage: "Key Message",
+    visualHint: "Visual Hint",
+    hook: "Hook",
+    headline: "Headline",
+    body: "Body",
+    cta: "CTA",
+    microLabel: "Micro Label",
+    caption: "Instagram Caption",
+    hashtags: "Hashtags",
+    saveCopyEdits: "Save Copy Edits",
+    savedNotice: "Project changes saved.",
+    deleteProjectTitle: (name) => `Delete ${name}`,
+    deleteProjectDesc:
+      "Permanently deletes this project, brief, and AI job history.",
+    jobStatusLabel: "Job",
+    tokensLabel: "Tokens",
+    statuses: {
+      draft: "Draft",
+      planning: "Planning",
+      ready: "Ready",
+      archived: "Archived",
+    },
+    contentTypes: {
+      educational: "Educational",
+      promotional: "Promotional",
+      listicle: "Listicle",
+      storytelling: "Storytelling",
+      tips: "Tips",
+    },
+    languages: {
+      id: "Indonesian",
+      en: "English",
+    },
+    jobStatuses: {
+      queued: "Queued",
+      processing: "Processing",
+      validating: "Validating",
+      rendering: "Rendering",
+      retrying: "Retrying",
+      completed: "Completed",
+      failed: "Failed",
+    },
+    stages: {
+      queued: "Queued",
+      brand_analyst: "Brand Analyst",
+      content_strategist: "Content Strategist",
+      copywriter: "Copywriter",
+      schema_validation: "Schema Validation",
+      completed: "Completed",
+    },
+  },
   roles: {
     owner: "Owner",
     admin: "Admin",
@@ -654,6 +844,7 @@ const ID: Dictionary = {
   shell: {
     dashboard: "Dasbor",
     brands: "Brand",
+    projects: "Proyek",
     workspace: "Workspace",
     workspaces: "Daftar Workspace",
     noWorkspace: "Belum Ada Workspace",
@@ -849,6 +1040,112 @@ const ID: Dictionary = {
       liked: "Disukai",
       disliked: "Dihindari",
       mandatory: "Wajib",
+    },
+  },
+  projects: {
+    title: "Proyek",
+    newTitle: "Proyek Baru",
+    generateTitle: "Konten & Copy",
+    newProject: "Proyek Baru",
+    searchPlaceholder: "Cari proyek...",
+    emptyTitle: "Belum ada proyek",
+    emptyDesc: "Buat proyek dan brief carousel untuk menghasilkan konten.",
+    needBrandTitle: "Buat brand terlebih dahulu",
+    needBrandDesc: "Proyek membutuhkan profil brand untuk konteks Brand DNA.",
+    goToBrands: "Buka Brand",
+    noMatches: "Tidak ada proyek yang cocok.",
+    noWorkspaceDesc: "Buat workspace terlebih dahulu sebelum membuat proyek.",
+    colProject: "Proyek",
+    colBrand: "Brand",
+    colType: "Jenis",
+    colSlides: "Slide",
+    colStatus: "Status",
+    colUpdated: "Diperbarui",
+    projectName: "Nama Proyek",
+    projectNamePlaceholder: "Panduan Seduh Kopi Q2",
+    selectBrand: "Brand",
+    topic: "Topik",
+    topicPlaceholder: "5 kesalahan pour-over yang membuat kopi pahit",
+    objective: "Tujuan",
+    objectivePlaceholder: "Meningkatkan simpan & bagikan dari penyeduh rumahan",
+    audience: "Audiens (Opsional)",
+    audiencePlaceholder: "Kosongkan untuk memakai audiens Brand DNA",
+    contentType: "Jenis Konten",
+    slideCount: "Jumlah Slide (3–10)",
+    outputLanguage: "Bahasa Output",
+    keyPoints: "Poin Utama",
+    keyPointsPlaceholder: "Ukuran gilingan, suhu 92C, bloom 30 detik",
+    ctaGoal: "Tujuan CTA",
+    ctaGoalPlaceholder: "Simpan panduan ini & tulis rasio favorit Anda",
+    productFacts: "Fakta Produk / Batasan",
+    productFactsPlaceholder: "Isi harga, lokasi, atau klaim resmi agar tidak dikarang AI",
+    toneOverride: "Penyesuaian Gaya Bahasa (Opsional)",
+    toneOverridePlaceholder: "Lebih lugas untuk hook carousel",
+    briefSection: "Brief Konten",
+    toggleBrief: "Brief",
+    saveBrief: "Simpan Brief",
+    generateContent: "Buat Rencana & Copy",
+    regenerateContent: "Buat Ulang",
+    generating: "Memproses...",
+    generationReady: "Rencana konten dan copywriting selesai dibuat.",
+    aiConfigNotice: "Layanan generasi AI memerlukan konfigurasi server.",
+    noContentYet: "Belum ada konten yang dibuat",
+    noContentDesc: "Jalankan generasi AI untuk menyusun rencana slide dan copywriting.",
+    tabContentPlan: "Rencana Konten",
+    tabSlideCopy: "Copywriting Slide",
+    angle: "Sudut Pandang",
+    storytellingArc: "Alur Cerita",
+    slideLabel: (n) => `Slide ${n}`,
+    purpose: "Tujuan Slide",
+    keyMessage: "Pesan Inti",
+    visualHint: "Arahan Visual",
+    hook: "Hook",
+    headline: "Judul (Headline)",
+    body: "Isi (Body)",
+    cta: "CTA",
+    microLabel: "Label Mikro",
+    caption: "Caption Instagram",
+    hashtags: "Tagar",
+    saveCopyEdits: "Simpan Perubahan Copy",
+    savedNotice: "Perubahan proyek disimpan.",
+    deleteProjectTitle: (name) => `Hapus ${name}`,
+    deleteProjectDesc:
+      "Menghapus proyek, brief, dan riwayat job AI secara permanen.",
+    jobStatusLabel: "Job",
+    tokensLabel: "Token",
+    statuses: {
+      draft: "Draf",
+      planning: "Perencanaan",
+      ready: "Siap",
+      archived: "Diarsipkan",
+    },
+    contentTypes: {
+      educational: "Edukasi",
+      promotional: "Promosi",
+      listicle: "Listicle",
+      storytelling: "Storytelling",
+      tips: "Tips",
+    },
+    languages: {
+      id: "Bahasa Indonesia",
+      en: "Bahasa Inggris",
+    },
+    jobStatuses: {
+      queued: "Antrean",
+      processing: "Diproses",
+      validating: "Validasi",
+      rendering: "Render",
+      retrying: "Mencoba Ulang",
+      completed: "Selesai",
+      failed: "Gagal",
+    },
+    stages: {
+      queued: "Antrean",
+      brand_analyst: "Brand Analyst",
+      content_strategist: "Content Strategist",
+      copywriter: "Copywriter",
+      schema_validation: "Validasi Skema",
+      completed: "Selesai",
     },
   },
   roles: {

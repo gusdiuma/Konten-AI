@@ -28,6 +28,11 @@ export type ErrorCode =
   | "ACS-AST-01"
   | "ACS-AST-02"
   | "ACS-REF-01"
+  | "ACS-PRJ-01"
+  | "ACS-PRJ-02"
+  | "ACS-AI-01"
+  | "ACS-AI-02"
+  | "ACS-AI-03"
   | "ACS-SYS-01";
 
 const PUBLIC_MESSAGES_EN: Record<ErrorCode, string> = {
@@ -57,6 +62,11 @@ const PUBLIC_MESSAGES_EN: Record<ErrorCode, string> = {
   "ACS-AST-01": "Unsupported file type, size, or filename.",
   "ACS-AST-02": "Unable to process asset file.",
   "ACS-REF-01": "Unable to save reference.",
+  "ACS-PRJ-01": "Project is unavailable.",
+  "ACS-PRJ-02": "Unable to save project.",
+  "ACS-AI-01": "Generation service is temporarily unavailable.",
+  "ACS-AI-02": "Generated output failed validation.",
+  "ACS-AI-03": "Generation job could not be completed.",
   "ACS-SYS-01": "Request could not be completed.",
 };
 
@@ -87,6 +97,11 @@ const PUBLIC_MESSAGES_ID: Record<ErrorCode, string> = {
   "ACS-AST-01": "Format, ukuran, atau nama file tidak didukung.",
   "ACS-AST-02": "Gagal memproses file aset.",
   "ACS-REF-01": "Gagal menyimpan referensi.",
+  "ACS-PRJ-01": "Proyek tidak tersedia.",
+  "ACS-PRJ-02": "Gagal menyimpan proyek.",
+  "ACS-AI-01": "Layanan AI sedang tidak tersedia.",
+  "ACS-AI-02": "Hasil generasi gagal melewati validasi.",
+  "ACS-AI-03": "Proses generasi tidak dapat diselesaikan.",
   "ACS-SYS-01": "Permintaan tidak dapat diselesaikan.",
 };
 

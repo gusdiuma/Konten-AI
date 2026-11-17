@@ -52,6 +52,19 @@ export function canManageBrands(role: WorkspaceRole | null): boolean {
   return role === "owner" || role === "admin";
 }
 
+export function canManageProjects(role: WorkspaceRole | null): boolean {
+  return (
+    role === "owner" ||
+    role === "admin" ||
+    role === "designer" ||
+    role === "content_creator"
+  );
+}
+
+export function canDeleteProjects(role: WorkspaceRole | null): boolean {
+  return role === "owner" || role === "admin" || role === "designer";
+}
+
 export interface ProfileRecord {
   id: string;
   full_name: string;

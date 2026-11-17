@@ -7,6 +7,7 @@ import {
   Building2,
   Check,
   ChevronsUpDown,
+  FolderKanban,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -38,7 +39,15 @@ import { cn } from "@/lib/utils";
 
 interface StudioShellProps {
   title?: string;
-  section?: "dashboard" | "brands" | "brandNew" | "brandDetail" | "settings";
+  section?:
+    | "dashboard"
+    | "brands"
+    | "brandNew"
+    | "brandDetail"
+    | "projects"
+    | "projectNew"
+    | "projectGenerate"
+    | "settings";
   locale?: Locale;
   userEmail: string;
   userName: string;
@@ -68,9 +77,15 @@ export function StudioShell({
           ? t.brands.newTitle
           : section === "brandDetail"
             ? title ?? t.brands.detailTitle
-            : section === "settings"
-              ? t.settings.title
-              : title ?? t.common.brand;
+            : section === "projects"
+              ? t.projects.title
+              : section === "projectNew"
+                ? t.projects.newTitle
+                : section === "projectGenerate"
+                  ? title ?? t.projects.generateTitle
+                  : section === "settings"
+                    ? t.settings.title
+                    : title ?? t.common.brand;
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
@@ -80,6 +95,7 @@ export function StudioShell({
   const navItems = [
     { href: "/dashboard", label: t.shell.dashboard, icon: LayoutDashboard },
     { href: "/brands", label: t.shell.brands, icon: Palette },
+    { href: "/projects", label: t.shell.projects, icon: FolderKanban },
     { href: "/workspace/settings", label: t.shell.workspace, icon: Settings },
   ];
 

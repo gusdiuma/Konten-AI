@@ -20,7 +20,7 @@ Copy `.env.example` to `.env.local` and configure:
 - `SUPABASE_SERVICE_ROLE_KEY` — Server-only service role key (never expose to client)
 - `AI_PROVIDER` — Default `gemini`
 - `GEMINI_API_KEY` — Server-side Gemini API key
-- `GEMINI_MODEL` — e.g. `gemini-2.5-flash`
+- `GEMINI_MODEL` — Default `gemini-4-hydrogen`
 - `APP_URL` — Application base URL
 
 ## Supabase Setup & Migrations
@@ -30,6 +30,7 @@ Copy `.env.example` to `.env.local` and configure:
    - `supabase/migrations/0001_milestone1_foundation.sql` — Creates `profiles`, `workspaces`, `workspace_members`, `workspace_invitations`, helper functions (`is_workspace_member`, `has_workspace_role`, `accept_workspace_invitation`), triggers, indexes, and multi-tenant RLS policies.
    - `supabase/migrations/0002_milestone2_brands.sql` — Creates `brands`, `brand_guidelines`, `brand_colors`, `brand_fonts`, `brand_assets`, `brand_references`, brand helper functions (`is_brand_member`, `has_brand_role`), triggers, indexes, and RLS policies.
    - `supabase/migrations/0003_milestone2_storage.sql` — Provisions private Supabase Storage buckets (`brand-assets`, `generated-assets`, `design-exports`) and workspace-scoped `storage.objects` RLS policies.
+   - `supabase/migrations/0004_milestone3_projects_ai.sql` — Creates `projects`, `content_briefs`, `ai_generation_jobs`, idempotency unique index, project helper functions (`is_project_member`, `has_project_role`), triggers, and RLS policies.
 3. In Supabase Authentication settings, configure Site URL and Redirect URLs to include `<APP_URL>/auth/callback`.
 
 ## Local Development
@@ -51,7 +52,7 @@ npm run build
 
 - **Milestone 1 (Complete)**: Next.js App Router scaffold, Supabase Auth (`/login`, `/signup`, `/auth/callback`, `/auth/reset-password`), profiles, workspaces, members & invitations, RBAC & RLS policies, dashboard shell (`/dashboard`, `/workspace/settings`).
 - **Milestone 2 (Complete)**: Brand Manager (`/brands`, `/brands/new`, `/brands/[id]`), Brand DNA (`brand_guidelines`), color palette (`brand_colors`), typography (`brand_fonts`), asset uploads (`brand_assets` + `brand-assets` private bucket), visual references (`brand_references`), and Storage RLS policies.
-- **Milestone 3 (Pending)**: Project & brief flow, Gemini provider adapter, content plan & copywriting generation.
+- **Milestone 3 (Complete)**: Project & brief flow (`/projects`, `/projects/new`, `/projects/[id]/generate`), server-side Gemini provider adapter (`gemini-4-hydrogen`), Brand Analyst synthesis (`/api/brands/[id]/analyze`), asynchronous AI generation jobs (`/api/generations`, `/api/generations/[id]`) with idempotency & polling, structured Content Plan & editable Slide Copywriting.
 - **Milestone 4 (Pending)**: Scene graph schema, layout archetypes, renderer, design generation, quality checks.
 - **Milestone 5 (Pending)**: Editable React Konva canvas, autosave, versions, single-slide revision.
 - **Milestone 6 (Pending)**: PNG/JPG/PDF export, async job status, tests, Vercel readiness.
